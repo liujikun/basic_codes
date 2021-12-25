@@ -378,7 +378,7 @@ class MyDNN(nn.Module):
         # x = self.E6(x)                                          # out: batch *
         # x = self.E7(x)                                          # out: batch * 
         # x = self.E8(x)                                          # out: batch * 
-        print(x.shape)
+        # print(x.shape)
         # x = self.D1(x)                                          # out: batch * 
         # x = self.D2(x)                                          # out: batch * 
         # x = self.D3(x)                                      
