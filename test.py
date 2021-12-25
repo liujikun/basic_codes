@@ -17,7 +17,7 @@ import utils
 import cv2
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--netroot', type = str, default = 'checkpoints/try_try_epoch500_bs8.pth', help = 'model root')
+parser.add_argument('--netroot', type = str, default = 'checkpoints/xixi_recon.pth', help = 'model root')
 parser.add_argument('--use_ensemble', type = bool, default = True, help = 'using True for the best performance and please change this to False for runtime testing')
 parser.add_argument('--saveroot', type = str, default = './test_results', help = 'result images saveroot')
 parser.add_argument('--test_input_folder', type = str, default = './test_input_folder', help = 'color image baseroot')

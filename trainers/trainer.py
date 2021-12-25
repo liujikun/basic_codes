@@ -63,6 +63,7 @@ def MyDNN(opt):
     # configurations
     sample_folder = os.path.join(opt.sample_path, opt.task)
     checkpoint_folder = os.path.join(opt.checkpoint_path, opt.task)
+    checkpoint_folder = checkpoint_folder + '/'
 
     if not os.path.exists(sample_folder):
         os.makedirs(sample_folder)
@@ -99,7 +100,7 @@ def MyDNN(opt):
         if opt.lr_decrease_mode == 'epoch':
             lr = opt.lr_g * (opt.lr_decrease_factor ** (epoch // opt.lr_decrease_epoch))
             if epoch < 200:
-                lr = 0.0001
+                lr = 0.001
             if epoch >= 200:
                 lr = 0.00005
             if epoch >= 300:
@@ -171,7 +172,7 @@ def MyDNN(opt):
             pre = generator(true_input)
 
             # L1 Loss
-            Pixellevel_Loss = criterion_L2(pre, true_input)
+            Pixellevel_Loss = criterion_L1(pre, true_input)
             iters_done = epoch * len(dataloader) + i
             # Overall Loss and optimize
             loss = Pixellevel_Loss

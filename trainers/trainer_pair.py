@@ -63,7 +63,7 @@ def MyDNN(opt):
     # configurations
     sample_folder = os.path.join(opt.sample_path, opt.task)
     checkpoint_folder = os.path.join(opt.checkpoint_path, opt.task)
-
+    checkpoint_folder = checkpoint_folder + '/'
     if not os.path.exists(sample_folder):
         os.makedirs(sample_folder)
     if not os.path.exists(checkpoint_folder):
