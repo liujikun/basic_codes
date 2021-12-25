@@ -170,10 +170,10 @@ def MyDNN(opt):
             pre = generator(input_img)
 
             # L1 Loss
-            Pixellevel_L1_Loss = criterion_L1(pre, gt)
+            Pixellevel_Loss = criterion_L2(pre, gt)
             iters_done = epoch * len(dataloader) + i
             # Overall Loss and optimize
-            loss = Pixellevel_L1_Loss
+            loss = Pixellevel_Loss
 
             loss.backward()
             optimizer_G.step()
@@ -183,11 +183,11 @@ def MyDNN(opt):
             iters_left = opt.epochs * len(dataloader) - iters_done
             time_left = datetime.timedelta(seconds = iters_left * (time.time() - prev_time))
             prev_time = time.time()
-            total_loss = Pixellevel_L1_Loss.item() + total_loss
+            total_loss = Pixellevel_Loss.item() + total_loss
 
             # # Print log
-            print("\r[Epoch %d/%d] [Batch %d/%d] [Pixellevel L1 Loss: %.4f] Time_left: %s" %
-                ((epoch + 1), opt.epochs, i, len(dataloader), Pixellevel_L1_Loss.item(), time_left))
+            print("\r[Epoch %d/%d] [Batch %d/%d] [Pixellevel Loss: %.4f] Time_left: %s" %
+                ((epoch + 1), opt.epochs, i, len(dataloader), Pixellevel_Loss.item(), time_left))
             if iters_done % 100 == 0:
                 img_list = [pre, gt]
                 name_list = ['pred', 'input']
