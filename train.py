@@ -10,9 +10,9 @@ if __name__ == "__main__":
     # ----------------------------------------
     parser = argparse.ArgumentParser()
     # Pre-train, saving, and loading parameters
-    parser.add_argument('--mode', type = str, default = 'Pair', help = 'Single / LXMERT /  Pair') # for second stage, change it to False
+    parser.add_argument('--mode', type = str, default = 'Single', help = 'Single / LXMERT /  Pair') # for second stage, change it to False
     parser.add_argument('--save_mode', type = str, default = 'epoch', help = 'saving mode, and by_epoch saving is recommended')
-    parser.add_argument('--save_by_epoch', type = int, default = 25, help = 'interval between model checkpoints (by epochs)')
+    parser.add_argument('--save_by_epoch', type = int, default = 5, help = 'interval between model checkpoints (by epochs)')
     parser.add_argument('--save_best_model', type = bool, default = True, help = 'save best model ot not')
     parser.add_argument('--save_by_iter', type = int, default = 10000000, help = 'interval between model checkpoints (by iterations)')
     parser.add_argument('--save_name_mode', type = bool, default = True, help = 'True for concise name, and False for exhaustive name')
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument('--in_channels', type = int, default = 3, help = '1 for colorization, 3 for other tasks')
     parser.add_argument('--out_channels', type = int, default = 3, help = '2 for colorization, 3 for other tasks')
     parser.add_argument('--max_position_embeddings', type = int, default = 29, help = '2 for colorization, 3 for other tasks')
-    parser.add_argument('--start_channels', type = int, default = 128, help = 'start channels for the main stream of generator')
+    parser.add_argument('--start_channels', type = int, default = 16, help = 'start channels for the main stream of generator')
     parser.add_argument('--num_attention_heads', type = int, default = 8, help = 'start channels for the main stream of generator')
     parser.add_argument('--intermediate_size', type = int, default = 2048, help = 'start channels for the main stream of generator')
     parser.add_argument('--hidden_size', type = int, default = 512, help = 'hiden size for transformer')
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # Dataset parameters
     parser.add_argument('--task', type = str, default = 'try', help = 'the specific task of the system')
     parser.add_argument('--angle_aug', type = bool, default = True, help = 'data augmentation')
-    parser.add_argument('--in_root', type = str, default = './txt_folder/input_pair.txt', help = 'input image path list')
+    parser.add_argument('--in_root', type = str, default = './txt_folder/input.txt', help = 'input image path list')
     parser.add_argument('--val_root', type = str, default = './txt_folder/val.txt', help = 'val image path list')
     parser.add_argument('--test_root', type = str, default = './txt_folder/test.txt', help = 'test image path list')
     parser.add_argument('--sample_path', type = str, default = './sample', help = 'val image save root')
