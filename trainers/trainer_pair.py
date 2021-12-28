@@ -72,8 +72,6 @@ def MyDNN(opt):
     criterion_L1 = torch.nn.L1Loss().cuda()
     criterion_L2 = torch.nn.MSELoss().cuda()
     # Initialize Generator
-    print('   *', '  * *', ' * * *', '   |  ', sep='\n')
-    print('Merry Christmas!')
     generator = utils.create_MyDNN(opt)
     print('Generator is created')
     if opt.use_checkpoint:

@@ -332,9 +332,9 @@ class PatchDiscriminator70(nn.Module):
         return x
 
 
-class MyDNN(nn.Module):
+class xixi_recon(nn.Module):
     def __init__(self, opt):
-        super(MyDNN, self).__init__()
+        super(xixi_recon, self).__init__()
         # The generator is U shaped
         # It means: input -> downsample -> upsample -> output
         # Encoder
@@ -382,6 +382,65 @@ class MyDNN(nn.Module):
         # x = self.D1(x)                                          # out: batch * 
         # x = self.D2(x)                                          # out: batch * 
         # x = self.D3(x)                                      
+        x = self.D4(x)                                         
+        
+        x = self.D5(x)                                        
+        x = self.D6(x)                                          
+        x = self.D7(x)
+        out = self.D8(x)                                         
+
+        return out
+
+class MyDNN(nn.Module):
+    def __init__(self, opt):
+        super(MyDNN, self).__init__()
+        # The generator is U shaped
+        # It means: input -> downsample -> upsample -> output
+        # Encoder
+        self.E1 = Conv2dLayer(opt.in_channels, opt.start_channels, 7, 1, 3, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E2 = Conv2dLayer(opt.start_channels, opt.start_channels * 2, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E3 = Conv2dLayer(opt.start_channels * 2, opt.start_channels * 4, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E4 = Conv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E5 = Conv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E6 = Conv2dLayer(opt.start_channels * 4, opt.start_channels * 8, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        self.E7 = Conv2dLayer(opt.start_channels * 8, opt.start_channels * 8, 3, 2, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.E8 = Conv2dLayer(opt.start_channels * 16, opt.start_channels * 32, 3, 4, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # Bottleneck
+        # self.T1 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T2 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T3 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T4 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T5 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T6 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T7 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T8 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # self.T9 = ResConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm)
+        # Decoder
+        # self.D1 = TransposeConv2dLayer(opt.start_channels * 32, opt.start_channels * 16, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 4)
+        self.D2 = TransposeConv2dLayer(opt.start_channels * 8, opt.start_channels * 8, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D3 = TransposeConv2dLayer(opt.start_channels * 8, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D4 = TransposeConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D5 = TransposeConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        # self.D6 = TransposeConv2dLayer(opt.start_channels * 4, opt.start_channels * 4, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D6 = TransposeConv2dLayer(opt.start_channels * 4, opt.start_channels * 2, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D7 = TransposeConv2dLayer(opt.start_channels * 2, opt.start_channels, 3, 1, 1, pad_type = opt.pad, activation = opt.activ_g, norm = opt.norm, scale_factor = 2)
+        self.D8 = Conv2dLayer(opt.start_channels, opt.out_channels, 3, 1, 1, pad_type = opt.pad, norm = 'none', activation = 'none')
+
+    def forward(self, x):
+
+        # print(x.shape)
+        x = self.E1(x)                                          # out: batch * 64 * 256 * 256
+        x = self.E2(x)                                          # out: batch * 128 * 128 * 128
+        x = self.E3(x)                                          # out: batch * 256 * 64 * 64
+        x = self.E4(x)                                          # out: batch *
+        x = self.E5(x)                                          # out: batch * 
+        x = self.E6(x)                                          # out: batch *
+        x = self.E7(x)                                          # out: batch * 
+        # x = self.E8(x)                                          # out: batch * 
+        print(x.shape)
+        # x = self.D1(x)                                          # out: batch * 
+        x = self.D2(x)                                          # out: batch * 
+        x = self.D3(x)                                      
         x = self.D4(x)                                         
         
         x = self.D5(x)                                        

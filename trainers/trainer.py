@@ -74,8 +74,6 @@ def MyDNN(opt):
     criterion_L2 = torch.nn.MSELoss().cuda()
     
     # Initialize Generator
-    print('   *', '  * *', ' * * *', '   |  ', sep='\n')
-    print('Merry Christmas!')
     generator = utils.create_MyDNN(opt)
     print('Generator is created')
     if opt.use_checkpoint:
@@ -100,7 +98,7 @@ def MyDNN(opt):
         if opt.lr_decrease_mode == 'epoch':
             lr = opt.lr_g * (opt.lr_decrease_factor ** (epoch // opt.lr_decrease_epoch))
             if epoch < 200:
-                lr = 0.001
+                lr = 0.0001
             if epoch >= 200:
                 lr = 0.00005
             if epoch >= 300:
@@ -190,7 +188,7 @@ def MyDNN(opt):
             # # Print log
             print("\r[Epoch %d/%d] [Batch %d/%d] [Pixellevel Loss: %.4f] Time_left: %s" %
                 ((epoch + 1), opt.epochs, i, len(dataloader), Pixellevel_Loss.item(), time_left))
-            if iters_done % 100 == 0:
+            if iters_done % 500 == 0:
                 img_list = [pre, true_input]
                 name_list = ['pred', 'input']
                 utils.save_sample_png(sample_folder = sample_folder, sample_name = opt.task + '_epoch%d' % (epoch + 1), img_list = img_list, name_list = name_list, pixel_max_cnt = 255)
