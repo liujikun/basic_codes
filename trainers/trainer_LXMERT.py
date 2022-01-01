@@ -10,7 +10,6 @@ import torch.backends.cudnn as cudnn
 import dataset
 import utils
 import os
-from tensorboardX import SummaryWriter
 import scipy.io
 from utils import load_dict
 import cv2
