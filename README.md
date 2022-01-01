@@ -1,5 +1,9 @@
 # Basic Code
 ## 1. Use The Code
+Configuration Environment
+```bash
+sh env.sh
+```
 Train
 ```bash
 python train.py
